@@ -10,38 +10,45 @@
 
 
 
+// 构建错误
+#define ExtensionBuildError(msg) \
+NSError *error = [NSError errorWithDomain:msg code:250 userInfo:nil]; \
+
+
 /**
  * 断言
  * @param condition   条件
  * @param returnValue 返回值
  */
-#define MJExtensionAssertError(condition, returnValue, clazz, msg) \
-[clazz setMj_error:nil]; \
+#define ExtensionAssertError(condition, returnValue, msg) \
 if ((condition) == NO) { \
-MJExtensionBuildError(clazz, msg); \
+ExtensionBuildError(msg); \
 return returnValue;\
 }
 
-#define MJExtensionAssert2(condition, returnValue) \
+
+
+
+#define ExtensionAssert2(condition, returnValue) \
 if ((condition) == NO) return returnValue;
 
 /**
  * 断言
  * @param condition   条件
  */
-#define MJExtensionAssert(condition) MJExtensionAssert2(condition, )
+#define ExtensionAssert(condition) ExtensionAssert2(condition,)
 
 /**
  * 断言
  * @param param         参数
  * @param returnValue   返回值
  */
-#define MJExtensionAssertParamNotNil2(param, returnValue) \
-MJExtensionAssert2((param) != nil, returnValue)
+#define ExtensionAssertParamNotNil2(param, returnValue) \
+ExtensionAssert2((param) != nil, returnValue)
 
 /**
  * 断言
  * @param param   参数
  */
-#define MJExtensionAssertParamNotNil(param) MJExtensionAssertParamNotNil2(param, )
+#define ExtensionAssertParamNotNil(param) ExtensionAssertParamNotNil2(param, )
 

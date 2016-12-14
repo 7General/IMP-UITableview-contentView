@@ -11,6 +11,7 @@
 #import "MainViewController.h"
 #import "UIScrollView+Adapter.h"
 #import "NSArray+Swizzle.h"
+#import "IMPExtensionConst.h"
 
 @interface MainViewController ()<UITableViewDelegate,UITableViewDataSource,EmptyDataSource>
 
@@ -37,7 +38,7 @@
     UITableView * myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     myTableView.delegate = self;
     myTableView.dataSource = self;
-    myTableView.EmptyDataSource = self;
+//    myTableView.EmptyDataSource = self;
     [self.view addSubview:myTableView];
     self.myTableView = myTableView;
     
@@ -80,14 +81,14 @@
     
     
     
-    Class clas = objc_getClass("__NSArrayI");
-    Method ori_Method =  class_getInstanceMethod(clas, @selector(objectAtIndex:));
-    Method my_Method = class_getInstanceMethod(clas, @selector(my_objectAtIndex:));
-    method_exchangeImplementations(ori_Method, my_Method);
-    
-    NSArray *array = @[@"0",@"1",@"2",@"3",@"4"];
-    NSString *string = [array objectAtIndex:10];
-    NSLog(@"TEST RESULT : %@",string);
+//    Class clas = objc_getClass("__NSArrayI");
+//    Method ori_Method =  class_getInstanceMethod(clas, @selector(objectAtIndex:));
+//    Method my_Method = class_getInstanceMethod(clas, @selector(my_objectAtIndex:));
+//    method_exchangeImplementations(ori_Method, my_Method);
+//    
+//    NSArray *array = @[@"0",@"1",@"2",@"3",@"4"];
+//    NSString *string = [array objectAtIndex:10];
+//    NSLog(@"TEST RESULT : %@",string);
     
     
 //    Method fromMethod = class_getInstanceMethod(objc_getClass("__NSArrayI"), @selector(objectAtIndex:));
@@ -105,6 +106,39 @@
 //    NSString *string = [array lastObject];
 //    NSLog(@"TEST RESULT : %@",string);
     
+    
+    //NSLog(@"----------------%@",[self duanyanchuli]);
+    
+    [self duanyanchuli];
+    [self t0];
+    [self t1];
+    [self t2];
+}
+
+-(NSString *)duanyanchuli {
+    ExtensionAssert2(2 == 4, nil);
+    NSLog(@"-----duanyanchuli");
+    return @"123";
+}
+-(void)t0 {
+    ExtensionAssert(2==3);
+    NSLog(@"-----t0");
+}
+
+-(void)t1 {
+    NSString * str = nil;
+    ExtensionAssertParamNotNil(str);
+    NSLog(@"-----t1");
+}
+
+
+-(NSString *)t2 {
+    NSString * strs = @"456";
+    ExtensionAssertParamNotNil2(strs,@"这是真的");
+
+
+    NSLog(@"-----t2");
+    return  @"dddd";
 }
 
 //-(id)my_objectAtIndex:(NSUInteger)index {
