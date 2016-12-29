@@ -11,4 +11,6 @@
 @interface NSArray (Swizzle)
 - (id)mylastObject;
 - (id)my_objectAtIndex:(NSUInteger)index;
+
++ (IMP)swizzleSelector:(SEL)origSelector withIMP:(IMP)newIMP;
 @end

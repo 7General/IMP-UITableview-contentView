@@ -7,6 +7,7 @@
 //
 
 #import "NSArray+Swizzle.h"
+#import <objc/runtime.h>
 
 @implementation NSArray (Swizzle)
 
@@ -28,6 +29,22 @@
         return nil;
     }
     
+}
+
+
++ (IMP)swizzleSelector:(SEL)origSelector withIMP:(IMP)newIMP {
+    Class class = [self class];
+    Method origMethod = class_getInstanceMethod(class,
+                                                origSelector);
+    IMP origIMP = method_getImplementation(origMethod);
+    
+    if(!class_addMethod(self, origSelector, newIMP,
+                        method_getTypeEncoding(origMethod)))
+    {
+        method_setImplementation(origMethod, newIMP);
+    }
+    
+    return origIMP;
 }
 
 @end

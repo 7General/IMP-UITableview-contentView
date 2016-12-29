@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol EmptyDataSource;
 
 @protocol EmptyDataSource <NSObject>
 @optional
--(void)gos;
+/**返回一个空的占位UIView*/
+-(UIView *)ResponsrWithscrollView:(UIScrollView *)scrollView;
 @end
 
 

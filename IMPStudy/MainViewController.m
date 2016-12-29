@@ -24,30 +24,33 @@
 -(NSMutableArray *)myData {
     if (_myData == nil) {
         _myData = [NSMutableArray new];
-
     }
     return _myData;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     [self addDataAfter];
-    
-    
     UITableView * myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     myTableView.delegate = self;
     myTableView.dataSource = self;
-//    myTableView.EmptyDataSource = self;
+    myTableView.EmptyDataSource = self;
     [self.view addSubview:myTableView];
     self.myTableView = myTableView;
     
+    /**添加按钮*/
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(100, 100, 100, 100);
+    btn.frame = CGRectMake(100, 100, 100, 50);
     btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(goClick) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(addClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
+    /**删除按钮*/
+    UIButton * DelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    DelBtn.frame = CGRectMake(100, 160, 100, 50);
+    DelBtn.backgroundColor = [UIColor greenColor];
+    [DelBtn addTarget:self action:@selector(delClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:DelBtn];
 }
 
 -(void)addDataAfter{
@@ -72,48 +75,42 @@
 }
 
 
--(void)goClick {
-
+-(void)addClick {
     [self.myData addObject:@"电脑"];
     [self.myTableView reloadData];
-    
-    
-    
-    
-    
-//    Class clas = objc_getClass("__NSArrayI");
-//    Method ori_Method =  class_getInstanceMethod(clas, @selector(objectAtIndex:));
-//    Method my_Method = class_getInstanceMethod(clas, @selector(my_objectAtIndex:));
-//    method_exchangeImplementations(ori_Method, my_Method);
-//    
-//    NSArray *array = @[@"0",@"1",@"2",@"3",@"4"];
-//    NSString *string = [array objectAtIndex:10];
-//    NSLog(@"TEST RESULT : %@",string);
-    
-    
-//    Method fromMethod = class_getInstanceMethod(objc_getClass("__NSArrayI"), @selector(objectAtIndex:));
-//    Method toMethod = class_getInstanceMethod(objc_getClass("__NSArrayI"), @selector(my_objectAtIndex:));
-//    method_exchangeImplementations(fromMethod, toMethod);
-    
-   
-
-//    Method ori_Method =  class_getInstanceMethod([NSArray class], @selector(lastObject));
-//    Method my_Method = class_getInstanceMethod([NSArray class], @selector(mylastObject));
-//    method_exchangeImplementations(ori_Method, my_Method);
-//    
-//    
-//    NSArray *array = @[@"0",@"1",@"2",@"3"];
-//    NSString *string = [array lastObject];
-//    NSLog(@"TEST RESULT : %@",string);
-    
-    
-    //NSLog(@"----------------%@",[self duanyanchuli]);
-    
-    [self duanyanchuli];
-    [self t0];
-    [self t1];
-    [self t2];
 }
+-(void)delClick {
+    if (self.myData.count == 0) return;
+    [self.myData removeObjectAtIndex:0];
+    [self.myTableView reloadData];
+}
+
+
+#pragma MARK - EmptyDataSource
+-(UIView *) ResponsrWithscrollView:(UIScrollView *)scrollView {
+    UIView * view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor lightGrayColor];
+    
+    UIButton * refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    refreshButton.backgroundColor = [UIColor blueColor];
+    refreshButton.frame = CGRectMake(100, 100, 100, 100);
+    [refreshButton addTarget:self action:@selector(refreshClick) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:refreshButton];
+    return view;
+}
+
+-(void)refreshClick {
+    [self addClick];
+}
+
+
+
+
+
+
+
+
+
 
 -(NSString *)duanyanchuli {
     ExtensionAssert2(2 == 4, nil);
