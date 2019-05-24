@@ -13,12 +13,14 @@
 @protocol EmptyDataSource <NSObject>
 @optional
 /**返回一个空的占位UIView*/
--(UIView *)ResponsrWithscrollView:(UIScrollView *)scrollView;
+- (UIView *)responsWithUITableView:(UITableView *)tableview;
 @end
 
 
-@interface UIScrollView (Adapter)
+@interface UITableView (Adapter)
 
 @property (nonatomic, weak) id<EmptyDataSource>  EmptyDataSource;
+
+- (void)swizzleIfPossible:(SEL)selector;
 
 @end

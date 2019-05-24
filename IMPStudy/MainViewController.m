@@ -9,7 +9,7 @@
 /**IMP指针study*/
 #import <objc/runtime.h>
 #import "MainViewController.h"
-#import "UIScrollView+Adapter.h"
+#import "UITableView+Adapter.h"
 #import "NSArray+Swizzle.h"
 #import "IMPExtensionConst.h"
 
@@ -37,6 +37,10 @@
     myTableView.EmptyDataSource = self;
     [self.view addSubview:myTableView];
     self.myTableView = myTableView;
+    
+    
+    
+    
     
     /**添加按钮*/
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -87,13 +91,13 @@
 
 
 #pragma MARK - EmptyDataSource
--(UIView *) ResponsrWithscrollView:(UIScrollView *)scrollView {
+-(UIView *) responsWithUITableView:(UIScrollView *)scrollView {
     UIView * view = [[UIView alloc] init];
     view.backgroundColor = [UIColor lightGrayColor];
     
     UIButton * refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
     refreshButton.backgroundColor = [UIColor blueColor];
-    refreshButton.frame = CGRectMake(100, 100, 100, 100);
+    refreshButton.frame = CGRectMake(100, 300, 100, 100);
     [refreshButton addTarget:self action:@selector(refreshClick) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:refreshButton];
     return view;
@@ -103,40 +107,40 @@
     [self addClick];
 }
 
-
-
-
-
-
-
-
-
-
--(NSString *)duanyanchuli {
-    ExtensionAssert2(2 == 4, nil);
-    NSLog(@"-----duanyanchuli");
-    return @"123";
-}
--(void)t0 {
-    ExtensionAssert(2==3);
-    NSLog(@"-----t0");
-}
-
--(void)t1 {
-    NSString * str = nil;
-    ExtensionAssertParamNotNil(str);
-    NSLog(@"-----t1");
-}
-
-
--(NSString *)t2 {
-    NSString * strs = @"456";
-    ExtensionAssertParamNotNil2(strs,@"这是真的");
-
-
-    NSLog(@"-----t2");
-    return  @"dddd";
-}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//-(NSString *)duanyanchuli {
+//    ExtensionAssert2(2 == 4, nil);
+//    NSLog(@"-----duanyanchuli");
+//    return @"123";
+//}
+//-(void)t0 {
+//    ExtensionAssert(2==3);
+//    NSLog(@"-----t0");
+//}
+//
+//-(void)t1 {
+//    NSString * str = nil;
+//    ExtensionAssertParamNotNil(str);
+//    NSLog(@"-----t1");
+//}
+//
+//
+//-(NSString *)t2 {
+//    NSString * strs = @"456";
+//    ExtensionAssertParamNotNil2(strs,@"这是真的");
+//
+//
+//    NSLog(@"-----t2");
+//    return  @"dddd";
+//}
 
 //-(id)my_objectAtIndex:(NSUInteger)index {
 //    NSLog(@"-------------------");
@@ -166,6 +170,11 @@
 
 -(void)btnClick2 {
     NSLog(@"----btnClick2");
+}
+
+
+- (void)dealloc {
+    NSLog(@"dealloc-->>%@",self.myTableView.EmptyDataSource);
 }
 
 
